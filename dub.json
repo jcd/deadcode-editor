@@ -1,0 +1,59 @@
+{
+	"name": "deadcode-editor",
+	"description": "Deadcode - Code Editor",
+	"homepage": "http://deadcode.steamwinter.com",
+	"copyright": "Copyright © 2016, Jonas Drewsen",
+	"license": "Boost v1",	
+	"authors": [ "Jonas Drewsen" ],
+	"dependencies": {
+		"deadcode-core": ">=0.0.0",
+		"deadcode-rpc": ">=0.0.0",
+		"deadcode-api": ">=0.0.0",
+		"deadcode-animation": ">=0.0.0",
+		"deadcode-graphics": ">=0.0.0",
+		"deadcode-gui": ">=0.0.0",
+		
+		"deadcode-io" : ">=0.0.0",
+		"deadcode-platform" : ">=0.0.0",
+		"deadcode-event-sdl" : ">=0.0.0",
+		"deadcode-edit" : ">=0.0.0",
+		"poodinis": "~>6.2.0"
+	},
+	"dependencies-posix": {
+	    "x11": "~>1.0.8"
+	},
+	"versions-windows": ["Unicode" ],
+	"lflags-windows": ["/NOCODEVIEW"],
+	"libs-posix": ["curl", "X11"],
+	"buildRequirements": ["allowWarnings"],
+	"versions" : ["NoMain"],
+
+    "targetType": "executable",
+	"dflags" : ["-vcolumns"],
+    "targetName" : "deadcode",
+    "XXsourceFiles-windows": [ "source/win.def", "source/win.res" ],
+	"buildTypes" : {
+        "unittest" : {
+        	"buildOptions" : [ "unittests", "debugMode", "debugInfo" ]
+        },
+        "debug" : {
+        	"buildOptions" : [ "debugMode", "debugInfo" ]
+        },
+        "profile" : {
+            "buildOptions" : [ "profile", "optimize", "inline", "debugInfo" ],
+		    "preBuildCommands-windows" : [ "tool.bat generate-resource-pack resources resources.pack",
+							     		   "tool.bat generate-resource-pack binaries binaries.pack" ],
+     		"versions" : ["portable", "release"]
+        },
+        "release" : {
+            "buildOptions" : [ "releaseMode", "optimize" ],
+		    "preBuildCommands-windows" : [ "tool.bat generate-resource-pack resources resources.pack",
+							     		   "tool.bat generate-resource-pack binaries binaries.pack" ],
+     		"versions" : ["release"]
+        },
+        "rpcapioutput" : {
+        	"buildOptions" : [ "debugMode", "debugInfo" ],
+        	"versions" : [ "OutputRPCAPI" ]
+        }
+    }
+}
